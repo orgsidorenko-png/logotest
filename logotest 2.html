@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#FAFAF5">
+<title>Тест речевого развития · Превью</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light only;
+    --bg: #FAFAF5;
+    --ink: #1A1A1A;
+    --ink-soft: #2C2C2C;
+    --muted: #6B6B6B;
+    --muted-light: #9A9A9A;
+    --grid: rgba(120, 160, 190, 0.18);
+    --grid-strong: rgba(120, 160, 190, 0.28);
+    --margin-red: rgba(180, 100, 100, 0.45);
+    --accent: #6B2D2D;
+    --accent-hover: #501F1F;
+    --accent-soft: #F2EAE6;
+    --border: #E5DFD3;
+    --card: #FFFFFF;
+    --grid-size: 28px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background-color: #FAFAF5;
+    color-scheme: light only;
+  }
+
+  body {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FAFAF5 !important;
+    color: #1A1A1A !important;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-image:
+      linear-gradient(to right, var(--grid) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+    background-size: var(--grid-size) var(--grid-size);
+    background-position: 0 0;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    left: clamp(16px, 8vw, 100px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--margin-red);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .stage {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 28px clamp(24px, 8vw, 80px) 120px;
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+  }
+
+  .header-mark {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-mark::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h1 {
+    font-size: clamp(32px, 5.5vw, 46px);
+    line-height: 1.08;
+    margin-bottom: 24px;
+    font-variation-settings: 'opsz' 144, 'SOFT' 30;
+  }
+
+  h2 {
+    font-size: clamp(26px, 4vw, 32px);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    font-variation-settings: 'opsz' 100;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .intro-text {
+    font-size: 17px;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .quote {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    font-size: 17px;
+    color: var(--muted);
+    padding: 20px 0 20px 24px;
+    border-left: 2px solid var(--accent);
+    margin: 32px 0 48px;
+    line-height: 1.5;
+  }
+
+  .progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    z-index: 100;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .block-meta {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .block-meta-num {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .block-meta-divider {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    align-self: center;
+  }
+
+  .block-intro {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  .question {
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .question:nth-child(1) { animation-delay: 0.05s; }
+  .question:nth-child(2) { animation-delay: 0.1s; }
+  .question:nth-child(3) { animation-delay: 0.15s; }
+  .question:nth-child(4) { animation-delay: 0.2s; }
+  .question:nth-child(5) { animation-delay: 0.25s; }
+  .question:nth-child(6) { animation-delay: 0.3s; }
+  .question:nth-child(7) { animation-delay: 0.35s; }
+  .question:nth-child(8) { animation-delay: 0.4s; }
+  .question:nth-child(9) { animation-delay: 0.45s; }
+  .question:nth-child(10) { animation-delay: 0.5s; }
+  .question:nth-child(n+11) { animation-delay: 0.55s; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-num {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .q-text {
+    font-size: 17px;
+    color: var(--ink);
+    line-height: 1.45;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .q-hint {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    user-select: none;
+  }
+
+  .option:hover {
+    border-color: var(--ink);
+    background: rgba(0, 0, 0, 0.015);
+  }
+
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+
+  .option input {
+    margin: 0;
+    margin-top: 3px;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .option-label {
+    flex: 1;
+  }
+
+  .multi-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 15px;
+    background: var(--card);
+  }
+
+  .multi-item-label {
+    color: var(--ink-soft);
+  }
+
+  .scale {
+    display: flex;
+    gap: 4px;
+  }
+
+  .scale-btn {
+    border: 1px solid var(--border);
+    background: transparent;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--muted);
+    transition: all 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .scale-btn:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .scale-btn.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    gap: 16px;
+  }
+
+  .btn {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:disabled {
+    background: var(--border);
+    border-color: var(--border);
+    color: var(--muted-light);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border-color: transparent;
+  }
+
+  .btn-ghost:hover {
+    color: var(--ink);
+  }
+
+  .btn-large {
+    padding: 18px 36px;
+    font-size: 16px;
+  }
+
+  .start-screen {
+    padding-top: 0;
+  }
+
+  .start-meta {
+    display: flex;
+    gap: 32px;
+    margin: 48px 0 56px;
+    padding: 24px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .start-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .start-meta-key {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  .start-meta-val {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* RESULT SCREEN */
+  .result-screen { padding-top: 24px; }
+
+  .result-eyebrow {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 36px clamp(24px, 5vw, 40px);
+    margin: 32px 0;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  }
+
+  .result-card h3 {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  .result-card p {
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .result-card p:last-child { margin-bottom: 0; }
+
+  .result-card strong {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .cta-card {
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 8px;
+    padding: 36px clamp(24px, 5vw, 40px);
+    margin: 32px 0;
+  }
+
+  .cta-card h3 {
+    color: var(--bg);
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .cta-card p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 24px;
+    line-height: 1.55;
+  }
+
+  .message-preview {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.55;
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .cta-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.06);
+    color: white;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .cta-btn:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .cta-btn.copy {
+    background: white;
+    color: var(--ink);
+    border-color: white;
+  }
+
+  .cta-btn.copy:hover { background: rgba(255,255,255,0.9); }
+
+  .cta-btn.copy.copied {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+
+  .signoff {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .signoff em {
+    font-family: 'Fraunces', Georgia, serif;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+
+  .restart {
+    margin-top: 24px;
+    text-align: center;
+  }
+
+  .restart button {
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  .restart button:hover { color: var(--ink); }
+
+  @media (max-width: 520px) {
+    .stage { padding-left: 32px; padding-right: 20px; padding-top: 20px; }
+    body::before { left: 18px; }
+    .nav { flex-direction: column-reverse; gap: 12px; }
+    .nav .btn { width: 100%; }
+    .cta-buttons { flex-direction: column; }
+    .start-meta { gap: 20px; margin: 32px 0 40px; padding: 20px 0; }
+  }
+
+  /* Принудительная светлая тема даже при системной тёмной */
+  @media (prefers-color-scheme: dark) {
+    html, body {
+      background-color: #FAFAF5 !important;
+      color: #1A1A1A !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+<main class="stage" id="stage">
+  <!-- Dynamic -->
+</main>
+
+<script>
+// =========================================================================
+// TEST DATA
+// =========================================================================
+
+const TEST = {
+  blocks: [
+    {
+      id: 1,
+      title: "О ребёнке",
+      intro: "Начнём с общей информации — это поможет подобрать релевантные вопросы.",
+      questions: [
+        {
+          id: "1.1", num: "1.1",
+          text: "Возраст ребёнка",
+          type: "single", required: true,
+          options: [
+            { v: "0-1", l: "До 1 года" },
+            { v: "1-2", l: "1–2 года" },
+            { v: "2-3", l: "2–3 года" },
+            { v: "3-4", l: "3–4 года" },
+            { v: "4-5", l: "4–5 лет" },
+            { v: "5-7", l: "5–7 лет" },
+            { v: "7+",  l: "7 лет и старше" }
+          ]
+        },
+        {
+          id: "1.2", num: "1.2",
+          text: "Есть ли у ребёнка подтверждённые диагнозы или наблюдение у специалистов?",
+          type: "single", required: true,
+          options: [
+            { v: "none",      l: "Нет, ребёнок здоров" },
+            { v: "watching",  l: "Наблюдаемся у невролога / психиатра без диагноза" },
+            { v: "diagnosis", l: "Есть подтверждённый диагноз (РАС, ЗПР, ЗПРР, алалия, СДВГ, нарушения слуха, ДЦП и др.)" },
+            { v: "unsure",    l: "Затрудняюсь ответить" }
+          ]
+        },
+        {
+          id: "1.3", num: "1.3",
+          text: "Проверяли ли слух у ребёнка?",
+          type: "single", required: true,
+          options: [
+            { v: "ok",      l: "Да, слух в норме" },
+            { v: "loss",    l: "Да, есть снижение слуха" },
+            { v: "notdone", l: "Нет, не проверяли" }
+          ]
+        }
+      ]
+    },
+
+    {
+      id: 2,
+      title: "Раннее доречевое развитие",
+      intro: "Эти вопросы — про анамнез. Отвечайте по памяти, точные даты не нужны.",
+      questions: [
+        { id: "2.1", num: "2.1", text: "Гулил ли ребёнок в 2–3 месяца (протяжные «а-а», «гу»)?", type: "yn4" },
+        { id: "2.2", num: "2.2", text: "Был ли активный лепет в 6–9 месяцев («ба-ба-ба», «да-да-да»)?", type: "yn4" },
+        { id: "2.3", num: "2.3", text: "Появились ли первые осознанные слова к 1 году — 1 году 3 месяцам?", type: "yn4", hideForAges: ["0-1"] },
+        { id: "2.4", num: "2.4", text: "К 2 годам появилась простая фраза («мама дай», «папа там»)?", type: "yn4", hideForAges: ["0-1", "1-2"] },
+        { id: "2.5", num: "2.5", text: "К 2,5–3 годам ребёнок говорил предложениями из 3–4 слов?", type: "yn4", hideForAges: ["0-1", "1-2", "2-3"] }
+      ]
+    },
+
+    {
+      id: 3,
+      title: "Понимание речи",
+      intro: "Как ребёнок воспринимает обращённую к нему речь.",
+      questions: [
+        { id: "3.1", num: "3.1", text: "Откликается ли ребёнок на своё имя?", type: "yn3" },
+        { id: "3.2", num: "3.2", text: "Понимает и выполняет простые просьбы («дай», «принеси», «покажи»)?", type: "yn3" },
+        { id: "3.3", num: "3.3", text: "Понимает инструкции в два действия («возьми мишку и положи на стул»)?", type: "yn3" },
+        { id: "3.4", num: "3.4", text: "Понимает обращённую речь без жестов и подсказок?", type: "yn3" },
+        { id: "3.5", num: "3.5", text: "Различает значения слов с близким звучанием (миска — мишка, бочка — почка)?",
+          type: "yn3", hideForAges: ["0-1","1-2","2-3","3-4"] }
+      ]
+    },
+
+    {
+      id: 4,
+      title: "Звукопроизношение",
+      intro: "Основной блок логопедической диагностики.",
+      questions: [
+        {
+          id: "4.1", num: "4.1",
+          text: "Все ли звуки ребёнок произносит чётко и правильно?",
+          type: "single",
+          options: [
+            { v: "yes",    l: "Да, все" },
+            { v: "no",     l: "Нет, есть нарушения" },
+            { v: "unsure", l: "Не уверен(а)" }
+          ]
+        },
+        {
+          id: "4.2", num: "4.2",
+          text: "Какие звуки даются с трудом или произносятся неправильно?",
+          hint: "Можно выбрать несколько вариантов.",
+          type: "multi",
+          options: [
+            { v: "whistle", l: "Свистящие: С, Сь, З, Зь, Ц" },
+            { v: "hush",    l: "Шипящие: Ш, Ж, Ч, Щ" },
+            { v: "r",       l: "Сонорные: Р, Рь" },
+            { v: "l",       l: "Сонорные: Л, Ль" },
+            { v: "kgh",     l: "Заднеязычные: К, Г, Х" },
+            { v: "voicing", l: "Звонкие/глухие путает (б-п, д-т, г-к)" },
+            { v: "vowels",  l: "Гласные звуки" },
+            { v: "none",    l: "Никакие, всё чисто" }
+          ]
+        },
+        { id: "4.3", num: "4.3", text: "Заменяет ли ребёнок один звук на другой («лыба» вместо «рыба», «сапка» вместо «шапка»)?", type: "yn3" },
+        { id: "4.4", num: "4.4", text: "Пропускает звуки или слоги в словах («акашка» вместо «ромашка»)?", type: "yn3" },
+        { id: "4.5", num: "4.5", text: "Переставляет слоги местами («левизор» вместо «телевизор»)?", type: "yn3" },
+        {
+          id: "4.6", num: "4.6",
+          text: "Понимают ли ребёнка посторонние взрослые (не родители)?",
+          type: "single",
+          options: [
+            { v: "always",   l: "Всегда понимают" },
+            { v: "usually",  l: "Чаще понимают" },
+            { v: "close",    l: "Понимают только близкие" },
+            { v: "hardly",   l: "Понимают с трудом или не понимают" }
+          ]
+        },
+        { id: "4.7", num: "4.7", text: "Есть ли носовой («гнусавый») оттенок голоса?",
+          type: "yn3", hideForAges: ["0-1","1-2","2-3"] },
+        { id: "4.8", num: "4.8", text: "Голос ребёнка тихий, сиплый, монотонный или быстро устаёт?",
+          type: "yn3", hideForAges: ["0-1","1-2","2-3"] }
+      ]
+    },
+
+    {
+      id: 5,
+      title: "Словарный запас и грамматика",
+      intro: "О том, сколько слов ребёнок знает и как составляет из них предложения.",
+      questions: [
+        {
+          id: "5.1", num: "5.1",
+          text: "Соответствует ли словарный запас возрасту?",
+          hint: "Ориентиры: 1 год — около 10 слов · 2 года — 200–300 слов и простая фраза · 3 года — 800–1000 слов · 4–5 лет — 2000+ слов · 6–7 лет — 3500+ слов.",
+          type: "single",
+          options: [
+            { v: "fits",       l: "Да, соответствует" },
+            { v: "less",       l: "Меньше нормы" },
+            { v: "muchless",   l: "Значительно меньше нормы" },
+            { v: "dunno",      l: "Не знаю" }
+          ]
+        },
+        { id: "5.2", num: "5.2", text: "Правильно ли согласует слова: «красный мяч», «красная машина», «красное яблоко»?",
+          type: "yn3", hideForAges: ["0-1","1-2"] },
+        { id: "5.3", num: "5.3", text: "Правильно ли использует предлоги (в, на, под, за, из-за, из-под)?",
+          type: "yn3", hideForAges: ["0-1","1-2"] },
+        { id: "5.4", num: "5.4", text: "Правильно ли употребляет окончания и падежи («много кубиков», а не «много кубики»)?",
+          type: "yn3", hideForAges: ["0-1","1-2"] },
+        { id: "5.5", num: "5.5", text: "Образует множественное число (стол — столы, ухо — уши)?",
+          type: "yn3", hideForAges: ["0-1","1-2"] },
+        { id: "5.6", num: "5.6", text: "Образует уменьшительные формы (дом — домик)?",
+          type: "yn3", hideForAges: ["0-1","1-2"] },
+        { id: "5.7", num: "5.7", text: "Умеет подобрать слово-признак, слово-действие (мяч какой? что делает?)?",
+          type: "yn3", hideForAges: ["0-1","1-2","2-3"] }
+      ]
+    },
+
+    {
+      id: 6,
+      title: "Связная речь",
+      intro: "Умение строить рассказ — показатель зрелости речи.",
+      questions: [
+        { id: "6.1", num: "6.1", text: "Может составить рассказ по картинке из 3–5 предложений?", type: "yn3" },
+        { id: "6.2", num: "6.2", text: "Пересказывает короткую сказку или мультфильм?", type: "yn3" },
+        { id: "6.3", num: "6.3", text: "Рассказывает, как прошёл день, что делал в саду?", type: "yn3" },
+        { id: "6.4", num: "6.4", text: "Использует сложные предложения с союзами «потому что», «когда», «если»?", type: "yn3" },
+        { id: "6.5", num: "6.5", text: "Удерживает логику и последовательность в рассказе?", type: "yn3" }
+      ]
+    },
+
+    {
+      id: 7,
+      title: "Артикуляционный аппарат",
+      intro: "Эти вопросы показывают, нужен ли логопедический массаж и работа с тонусом мышц речевого аппарата.",
+      questions: [
+        { id: "7.1", num: "7.1", text: "Рот ребёнка часто приоткрыт в спокойном состоянии?", type: "yn3" },
+        { id: "7.2", num: "7.2", text: "Дышит ли ребёнок преимущественно через рот (днём, во сне)?", type: "yn3" },
+        { id: "7.3", num: "7.3", text: "Есть ли повышенное слюноотделение после 2,5–3 лет?",
+          type: "yn3", hideForAges: ["0-1","1-2"] },
+        { id: "7.4", num: "7.4", text: "Высовывается ли язык изо рта непроизвольно?", type: "yn3" },
+        { id: "7.5", num: "7.5", text: "Есть ли сложности с пережёвыванием твёрдой пищи, отказ от мяса, моркови, яблок целиком?", type: "yn3" },
+        {
+          id: "7.6", num: "7.6",
+          text: "Может ли ребёнок по просьбе выполнить артикуляционные движения?",
+          hint: "Отметьте по каждому пункту.",
+          type: "matrix",
+          rows: [
+            { v: "smile", l: "Широко улыбнуться" },
+            { v: "tube",  l: "Вытянуть губы трубочкой" },
+            { v: "stick", l: "Высунуть язык и подержать" },
+            { v: "up",    l: "Поднять язык к верхним зубам" },
+            { v: "click", l: "Пощёлкать языком" }
+          ],
+          cols: [
+            { v: "easy", l: "Легко" },
+            { v: "hard", l: "С трудом" },
+            { v: "no",   l: "Не получается" }
+          ],
+          hideForAges: ["0-1","1-2"]
+        },
+        { id: "7.7", num: "7.7", text: "Заметны ли подёргивания, дрожание (тремор) языка, губ, подбородка при артикуляции?",
+          type: "yn3", hideForAges: ["0-1"] },
+        { id: "7.8", num: "7.8", text: "Мимика ребёнка скорее вялая, «застывшая»?", type: "yn3" },
+        { id: "7.9", num: "7.9", text: "Есть ли нарушения прикуса (по словам стоматолога или визуально)?", type: "yn3" },
+        { id: "7.10", num: "7.10", text: "Говорил ли стоматолог о короткой подъязычной уздечке?", type: "yn3" }
+      ]
+    },
+
+    {
+      id: 8,
+      title: "Темп, плавность и голос",
+      intro: "Как звучит речь ребёнка.",
+      questions: [
+        { id: "8.1", num: "8.1", text: "Говорит слишком быстро, «глотает» окончания и слоги?", type: "yn3" },
+        { id: "8.2", num: "8.2", text: "Говорит слишком медленно, тянет слова?", type: "yn3" },
+        { id: "8.3", num: "8.3", text: "Есть запинки, повторы слогов, слов, «застревания» в начале фразы?", type: "yn3" },
+        { id: "8.4", num: "8.4", text: "Появилось заикание (даже эпизодически)?", type: "yn3" },
+        { id: "8.5", num: "8.5", text: "Ребёнок стесняется своей речи, замолкает при посторонних, отказывается говорить?", type: "yn3" }
+      ]
+    },
+
+    {
+      id: 9,
+      title: "Чтение и письмо",
+      intro: "Только для школьников — здесь могут проявиться дисграфия и дислексия.",
+      questions: [
+        { id: "9.1", num: "9.1", text: "Сложно даётся обучение чтению — медленно, по слогам во 2–3 классе?", type: "yn3" },
+        { id: "9.2", num: "9.2", text: "Путает похожие буквы при чтении и письме (б-д, п-т, и-у, ш-щ)?", type: "yn3" },
+        { id: "9.3", num: "9.3", text: "Пишет буквы или цифры зеркально?", type: "yn3" },
+        { id: "9.4", num: "9.4", text: "Пропускает буквы, слоги, не дописывает окончания?", type: "yn3" },
+        { id: "9.5", num: "9.5", text: "С трудом пересказывает прочитанное, не понимает смысл текста?", type: "yn3" },
+        { id: "9.6", num: "9.6", text: "Боится отвечать у доски, читать вслух из-за речи?", type: "yn3" }
+      ]
+    },
+
+    {
+      id: 10,
+      title: "Коммуникация и поведение",
+      intro: "Как ребёнок использует речь в общении.",
+      questions: [
+        { id: "10.1", num: "10.1", text: "Охотно ли ребёнок вступает в общение со взрослыми и детьми?", type: "yn3" },
+        { id: "10.2", num: "10.2", text: "Поддерживает диалог, отвечает на вопросы по сути?", type: "yn3",
+          hideForAges: ["0-1","1-2"] },
+        { id: "10.3", num: "10.3", text: "Смотрит ли в глаза при разговоре?", type: "yn3" },
+        { id: "10.4", num: "10.4", text: "Использует речь, чтобы выразить желание, эмоцию, просьбу?",
+          type: "yn3", hideForAges: ["0-1"] },
+        { id: "10.5", num: "10.5", text: "Заменяет ли ребёнок речь жестами, мычанием, плачем после 2,5 лет?",
+          type: "yn3", hideForAges: ["0-1","1-2"] }
+      ]
+    }
+  ]
+};
+
+// Branching: which blocks to show by age
+const AGE_BLOCKS = {
+  "0-1":  [1, 2, 3, 7, 10],
+  "1-2":  [1, 2, 3, 5, 7, 8, 10],
+  "2-3":  [1, 2, 3, 4, 5, 7, 8, 10],
+  "3-4":  [1, 2, 3, 4, 5, 7, 8, 10],
+  "4-5":  [1, 2, 3, 4, 5, 6, 7, 8, 10],
+  "5-7":  [1, 2, 3, 4, 5, 6, 7, 8, 10],
+  "7+":   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+};
+
+const AGE_LABEL = {
+  "0-1": "до 1 года", "1-2": "1–2 года", "2-3": "2–3 года",
+  "3-4": "3–4 года", "4-5": "4–5 лет", "5-7": "5–7 лет", "7+": "7+ лет"
+};
+
+// =========================================================================
+// STATE
+// =========================================================================
+
+const state = {
+  screen: "welcome", // welcome | block | result
+  visibleBlocks: [],
+  currentIdx: 0,
+  answers: {}
+};
+
+// =========================================================================
+// RENDERING
+// =========================================================================
+
+const stage = document.getElementById("stage");
+
+function render() {
+  if (state.screen === "welcome") renderWelcome();
+  else if (state.screen === "block") renderBlock();
+  else if (state.screen === "result") renderResult();
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateProgress() {
+  const bar = document.getElementById("progressBar");
+  if (state.screen === "welcome") { bar.style.width = "0%"; return; }
+  if (state.screen === "result")  { bar.style.width = "100%"; return; }
+  const total = state.visibleBlocks.length;
+  const done = state.currentIdx;
+  bar.style.width = ((done / total) * 100) + "%";
+}
+
+function renderWelcome() {
+  stage.innerHTML = `
+    <div class="start-screen">
+      <div class="header-mark">Диагностический тест · Логопедия</div>
+      <h1>Есть ли у вашего ребёнка логопедические сложности?</h1>
+      <p class="intro-text">Тест составила <strong>Юлия Кожевникова</strong> — практикующий логопед, специалист по раннему развитию и логопедическому массажу.</p>
+      <p class="intro-text">По ответам вы поймёте, соответствует ли речь ребёнка возрастной норме и какой формат работы ему подойдёт.</p>
+
+      <div class="start-meta">
+        <div class="start-meta-item">
+          <span class="start-meta-key">Время</span>
+          <span class="start-meta-val">5–7 минут</span>
+        </div>
+        <div class="start-meta-item">
+          <span class="start-meta-key">Возраст</span>
+          <span class="start-meta-val">0–7+ лет</span>
+        </div>
+        <div class="start-meta-item">
+          <span class="start-meta-key">Блоков</span>
+          <span class="start-meta-val">До 10</span>
+        </div>
+      </div>
+
+      <div class="quote">Тест не заменяет очную диагностику, но даёт точный ориентир и помогает не упустить время — а в логопедии время решает очень многое.</div>
+
+      <button class="btn btn-primary btn-large" onclick="startTest()">Начать тест</button>
+    </div>
+  `;
+}
+
+function renderBlock() {
+  const blockId = state.visibleBlocks[state.currentIdx];
+  const block = TEST.blocks.find(b => b.id === blockId);
+  const age = state.answers["1.1"];
+  const visibleQs = block.questions.filter(q => !q.hideForAges || !q.hideForAges.includes(age));
+
+  let html = `
+    <div class="header-mark">Блок ${state.currentIdx + 1} из ${state.visibleBlocks.length}</div>
+    <div class="block-meta">
+      <span class="block-meta-num">№ ${String(block.id).padStart(2,'0')}</span>
+      <span class="block-meta-divider"></span>
+    </div>
+    <h2>${block.title}</h2>
+    <p class="block-intro">${block.intro}</p>
+  `;
+
+  visibleQs.forEach(q => {
+    html += `<div class="question" data-qid="${q.id}">`;
+    html += `<span class="q-num">${q.num}</span>`;
+    html += `<div class="q-text">${q.text}</div>`;
+    if (q.hint) html += `<div class="q-hint">${q.hint}</div>`;
+
+    if (q.type === "yn3") {
+      html += renderOptions(q.id, [
+        { v: "yes",       l: "Да" },
+        { v: "partially", l: "Частично" },
+        { v: "no",        l: "Нет" }
+      ]);
+    } else if (q.type === "yn4") {
+      html += renderOptions(q.id, [
+        { v: "yes",   l: "Да" },
+        { v: "no",    l: "Нет" },
+        { v: "late",  l: "С задержкой" },
+        { v: "dunno", l: "Не помню" }
+      ]);
+    } else if (q.type === "single") {
+      html += renderOptions(q.id, q.options);
+    } else if (q.type === "multi") {
+      html += renderMulti(q.id, q.options);
+    } else if (q.type === "matrix") {
+      html += renderMatrix(q.id, q.rows, q.cols);
+    }
+
+    html += `</div>`;
+  });
+
+  html += `
+    <div class="nav">
+      <button class="btn btn-ghost" onclick="prevBlock()">${state.currentIdx === 0 ? "" : "← Назад"}</button>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextBlock()">${isLastBlock() ? "Узнать результат" : "Далее →"}</button>
+    </div>
+  `;
+
+  stage.innerHTML = html;
+  // Attach click handlers for option cards
+  document.querySelectorAll(".option").forEach(opt => {
+    opt.addEventListener("click", function() {
+      const input = this.querySelector("input");
+      if (!input) return;
+      if (input.type === "radio") {
+        input.checked = true;
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(i => {
+          i.closest(".option")?.classList.remove("selected");
+        });
+        this.classList.add("selected");
+        saveAnswer(input.name, input.value);
+      } else if (input.type === "checkbox") {
+        input.checked = !input.checked;
+        this.classList.toggle("selected", input.checked);
+        saveMultiAnswer(input.name, input.value, input.checked);
+      }
+    });
+  });
+
+  // Matrix scale buttons
+  document.querySelectorAll(".scale-btn").forEach(btn => {
+    btn.addEventListener("click", function() {
+      const qid = this.dataset.qid;
+      const row = this.dataset.row;
+      const col = this.dataset.col;
+      document.querySelectorAll(`.scale-btn[data-qid="${qid}"][data-row="${row}"]`).forEach(b => b.classList.remove("active"));
+      this.classList.add("active");
+      saveMatrixAnswer(qid, row, col);
+    });
+  });
+
+  // Restore previous answers visually
+  restoreAnswers(visibleQs);
+}
+
+function renderOptions(qid, options) {
+  return `<div class="options">` + options.map(o => `
+    <label class="option">
+      <input type="radio" name="${qid}" value="${o.v}">
+      <span class="option-label">${o.l}</span>
+    </label>
+  `).join("") + `</div>`;
+}
+
+function renderMulti(qid, options) {
+  return `<div class="options">` + options.map(o => `
+    <label class="option">
+      <input type="checkbox" name="${qid}" value="${o.v}">
+      <span class="option-label">${o.l}</span>
+    </label>
+  `).join("") + `</div>`;
+}
+
+function renderMatrix(qid, rows, cols) {
+  return rows.map(r => `
+    <div class="multi-item">
+      <div class="multi-item-label">${r.l}</div>
+      <div class="scale">
+        ${cols.map(c => `<button type="button" class="scale-btn" data-qid="${qid}" data-row="${r.v}" data-col="${c.v}">${c.l}</button>`).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+function restoreAnswers(questions) {
+  questions.forEach(q => {
+    const ans = state.answers[q.id];
+    if (ans === undefined) return;
+
+    if (q.type === "yn3" || q.type === "yn4" || q.type === "single") {
+      const input = document.querySelector(`input[name="${q.id}"][value="${ans}"]`);
+      if (input) {
+        input.checked = true;
+        input.closest(".option")?.classList.add("selected");
+      }
+    } else if (q.type === "multi") {
+      if (Array.isArray(ans)) {
+        ans.forEach(v => {
+          const inp = document.querySelector(`input[name="${q.id}"][value="${v}"]`);
+          if (inp) {
+            inp.checked = true;
+            inp.closest(".option")?.classList.add("selected");
+          }
+        });
+      }
+    } else if (q.type === "matrix") {
+      if (ans && typeof ans === "object") {
+        Object.entries(ans).forEach(([row, col]) => {
+          const btn = document.querySelector(`.scale-btn[data-qid="${q.id}"][data-row="${row}"][data-col="${col}"]`);
+          if (btn) btn.classList.add("active");
+        });
+      }
+    }
+  });
+}
+
+function saveAnswer(qid, value) {
+  state.answers[qid] = value;
+}
+
+function saveMultiAnswer(qid, value, checked) {
+  if (!Array.isArray(state.answers[qid])) state.answers[qid] = [];
+  if (checked) {
+    if (!state.answers[qid].includes(value)) state.answers[qid].push(value);
+  } else {
+    state.answers[qid] = state.answers[qid].filter(v => v !== value);
+  }
+}
+
+function saveMatrixAnswer(qid, row, col) {
+  if (!state.answers[qid] || typeof state.answers[qid] !== "object") state.answers[qid] = {};
+  state.answers[qid][row] = col;
+}
+
+// =========================================================================
+// NAVIGATION
+// =========================================================================
+
+function startTest() {
+  state.screen = "block";
+  state.currentIdx = 0;
+  state.visibleBlocks = [1]; // start with block 1
+  render();
+}
+
+function isLastBlock() {
+  return state.currentIdx === state.visibleBlocks.length - 1 && state.answers["1.1"];
+}
+
+function nextBlock() {
+  // Validate current block
+  const blockId = state.visibleBlocks[state.currentIdx];
+  const block = TEST.blocks.find(b => b.id === blockId);
+  const age = state.answers["1.1"];
+  const visibleQs = block.questions.filter(q => !q.hideForAges || !q.hideForAges.includes(age));
+
+  for (const q of visibleQs) {
+    const a = state.answers[q.id];
+    if (q.type === "matrix") {
+      // require all rows answered
+      if (!a || typeof a !== "object" || Object.keys(a).length < q.rows.length) {
+        alert(`Пожалуйста, ответьте на вопрос ${q.num}`);
+        return;
+      }
+    } else if (q.type === "multi") {
+      if (!Array.isArray(a) || a.length === 0) {
+        alert(`Пожалуйста, выберите хотя бы один вариант в вопросе ${q.num}`);
+        return;
+      }
+    } else {
+      if (a === undefined) {
+        alert(`Пожалуйста, ответьте на вопрос ${q.num}`);
+        return;
+      }
+    }
+  }
+
+  // After block 1: determine visible blocks
+  if (state.currentIdx === 0 && blockId === 1) {
+    const userAge = state.answers["1.1"];
+    state.visibleBlocks = AGE_BLOCKS[userAge] || AGE_BLOCKS["3-4"];
+  }
+
+  if (state.currentIdx < state.visibleBlocks.length - 1) {
+    state.currentIdx++;
+    render();
+  } else {
+    state.screen = "result";
+    render();
+  }
+}
+
+function prevBlock() {
+  if (state.currentIdx > 0) {
+    state.currentIdx--;
+    render();
+  }
+}
+
+// =========================================================================
+// SCORING & RESULT
+// =========================================================================
+
+function computeResult() {
+  const a = state.answers;
+  const age = a["1.1"];
+
+  // HARD RULES → Scenario 4
+  if (a["1.2"] === "diagnosis") return "S4";
+  if (a["1.3"] === "loss") return "S4";
+
+  // Comprehension red flags (block 3) → S4
+  const understandingNos = ["3.1","3.2","3.3","3.4"].filter(k => a[k] === "no").length;
+  if (understandingNos >= 3) return "S4";
+
+  // Communication red flags (block 10)
+  if (a["10.1"] === "no" && a["10.3"] === "no") return "S4";
+
+  // Younger kids with significant delay → Scenario 3-A (stimulation)
+  if (age === "1-2" || age === "2-3") {
+    const delayCount = ["2.3","2.4","2.5"].filter(k => a[k] === "no" || a[k] === "late").length;
+    const vocabIssue = a["5.1"] === "muchless" || a["5.1"] === "less";
+    const noSpeech = a["10.5"] === "yes";
+    if (delayCount >= 2 || (delayCount >= 1 && vocabIssue) || noSpeech) return "S3A";
+  }
+
+  // Count articulation apparatus issues (block 7) → massage indication
+  let articIssues = 0;
+  ["7.1","7.2","7.3","7.4","7.5","7.7","7.8","7.9","7.10"].forEach(k => {
+    if (a[k] === "yes") articIssues++;
+  });
+  // Matrix question 7.6
+  if (a["7.6"] && typeof a["7.6"] === "object") {
+    Object.values(a["7.6"]).forEach(v => {
+      if (v === "hard") articIssues += 0.5;
+      if (v === "no") articIssues += 1;
+    });
+  }
+
+  // Count general speech issues
+  let speechIssues = 0;
+
+  // Pronunciation issues
+  if (a["4.1"] === "no") speechIssues += 1;
+  if (Array.isArray(a["4.2"]) && !a["4.2"].includes("none") && a["4.2"].length > 0) {
+    speechIssues += Math.min(a["4.2"].length, 3);
+  }
+  ["4.3","4.4","4.5","4.7","4.8"].forEach(k => {
+    if (a[k] === "yes") speechIssues += 1;
+  });
+  if (a["4.6"] === "close" || a["4.6"] === "hardly") speechIssues += 1;
+
+  // Vocabulary / grammar
+  if (a["5.1"] === "muchless") speechIssues += 2;
+  else if (a["5.1"] === "less") speechIssues += 1;
+  ["5.2","5.3","5.4","5.5","5.6","5.7"].forEach(k => {
+    if (a[k] === "no") speechIssues += 0.5;
+  });
+
+  // Connected speech
+  ["6.1","6.2","6.3","6.4","6.5"].forEach(k => {
+    if (a[k] === "no") speechIssues += 0.5;
+  });
+
+  // Fluency
+  ["8.3","8.4","8.5"].forEach(k => {
+    if (a[k] === "yes") speechIssues += 1;
+  });
+
+  // School-age reading/writing
+  ["9.1","9.2","9.3","9.4","9.5","9.6"].forEach(k => {
+    if (a[k] === "yes") speechIssues += 1;
+  });
+
+  // DECIDE
+  // Strong articulation issues → Scenario 3 (massage + therapy)
+  if (articIssues >= 3 || (articIssues >= 2 && speechIssues >= 3)) return "S3";
+  // Moderate speech issues → Scenario 2
+  if (speechIssues >= 2) return "S2";
+  // Mild articulation only
+  if (articIssues >= 2 && speechIssues < 2) return "S3";
+  // Otherwise → Scenario 1 (diction)
+  return "S1";
+}
+
+const SCENARIOS = {
+  S1: {
+    eyebrow: "Речевая норма",
+    title: "Речь развивается в норме",
+    body: `<p>Ярких логопедических сложностей в ответах не выявлено: звукопроизношение, словарь, связная речь и состояние артикуляционного аппарата соответствуют возрастным ориентирам.</p>
+           <p>Но речь — это не только «правильные звуки». Это уверенность, выразительность, дикция, умение публично выступать и владеть голосом.</p>
+           <p><strong>Что подойдёт вашему ребёнку:</strong> курс <em>«Дикция и техника речи»</em>. Мы работаем над чёткостью артикуляции, силой и красотой голоса, выразительностью, темпом и ораторскими навыками. Это огромный плюс к уверенности в школе, на выступлениях и в общении.</p>`,
+    ctaTitle: "Записаться на консультацию",
+    ctaSubtitle: "Подберём программу под возраст и задачи ребёнка.",
+    msg: "Здравствуйте! Прошла тест на сайте. По итогам — речь ребёнка в норме, интересует курс «Дикция и техника речи». Возраст ребёнка: {AGE}. Можно записаться на консультацию?"
+  },
+  S2: {
+    eyebrow: "Лёгкие речевые сложности",
+    title: "Есть моменты, на которые стоит обратить внимание",
+    body: `<p>В ответах видны 1–3 проблемных зоны: нарушения звуков, словарь чуть ниже возрастной нормы, отдельные ошибки в грамматике или связной речи. Артикуляционный аппарат в целом в порядке.</p>
+           <p>Часто такие нарушения родители надеются «перерастут», но к 5 годам звуки уже должны быть поставлены — иначе они закрепляются и в школе превращаются в ошибки на письме.</p>
+           <p><strong>Что я предлагаю:</strong> индивидуальные логопедические занятия — постановка и автоматизация звуков, развитие фонематического слуха, обогащение словаря и грамматики. Обычно нужно от 2 до 8 месяцев в зависимости от нарушения.</p>`,
+    ctaTitle: "Записаться на диагностическую консультацию",
+    ctaSubtitle: "Составлю точный план и спрогнозирую сроки.",
+    msg: "Здравствуйте! Прошла тест на сайте, результат — лёгкие речевые сложности. Возраст ребёнка: {AGE}. Хочу записаться на диагностическую консультацию."
+  },
+  S3: {
+    eyebrow: "Выраженные нарушения · возможен массаж",
+    title: "Нужна комплексная работа с артикуляционным аппаратом",
+    body: `<p>В ответах — нарушения произношения, словаря или грамматики плюс признаки слабости артикуляционного аппарата: приоткрытый рот, слюнотечение, трудности с артикуляционными упражнениями, вялая мимика, проблемы с жеванием.</p>
+           <p>Нарушено не только произношение, но и тонус мышц речевого аппарата. Без работы с базой звуки ставить бесполезно — они «не удержатся».</p>
+           <p><strong>Что я предлагаю:</strong> <em>логопедический массаж + индивидуальные занятия.</em> Массаж нормализует тонус мышц языка, губ, щёк, мягкого нёба — после этого артикуляционные упражнения и постановка звуков идут быстрее и стабильнее. У меня есть подтверждённая квалификация по логопедическому массажу.</p>`,
+    ctaTitle: "Записаться на консультацию",
+    ctaSubtitle: "Оценю состояние артикуляционного аппарата вживую и определю, нужен ли массаж и в каком объёме.",
+    msg: "Здравствуйте! Прошла тест на сайте, результат указывает на возможную потребность в логопедическом массаже. Возраст ребёнка: {AGE}. Хочу записаться на консультацию."
+  },
+  S3A: {
+    eyebrow: "Задержка речевого развития",
+    title: "Ребёнку нужна стимуляция речи",
+    body: `<p>По ответам — мало слов, нет фразы или активное замещение речи жестами. При этом диагнозов нет, слух в норме, развитие в целом по возрасту.</p>
+           <p>Это «неговорящий ребёнок» с логопедической причиной задержки — именно с такими случаями я работаю. Важно не ждать «может, заговорит сам»: оптимальное окно для стимуляции речи — 2–3,5 года.</p>
+           <p><strong>Что я предлагаю:</strong> <em>стимуляция речи и раннее развитие.</em> Работаем с пониманием речи, подражанием, первыми словами и фразой, параллельно подключаем развивающие занятия по возрасту.</p>`,
+    ctaTitle: "Записаться на консультацию",
+    ctaSubtitle: "Чем раньше начнём, тем легче и быстрее результат.",
+    msg: "Здравствуйте! Прошла тест на сайте, по результату ребёнку нужна стимуляция речи. Возраст: {AGE}. Хочу записаться на консультацию."
+  },
+  S4: {
+    eyebrow: "Нужны смежные специалисты",
+    title: "Ребёнку нужен специалист другого профиля",
+    body: `<p>В ответах есть признаки, выходящие за рамки логопедической работы: подтверждённый диагноз, снижение слуха или серьёзные сложности с пониманием обращённой речи и контактом.</p>
+           <p>Речевые проблемы здесь — следствие более глубоких причин, и одной логопедической работы недостаточно. Сейчас в моей практике я не беру детей с такими особенностями — им нужен <strong>логопед-дефектолог</strong> в связке с неврологом, психиатром, нейропсихологом, сурдологом.</p>
+           <p><strong>Что я рекомендую:</strong></p>
+           <p>— обратиться к неврологу и/или психиатру для уточнения диагноза;<br>
+           — проверить слух у сурдолога (если не делали);<br>
+           — найти логопеда-дефектолога с опытом работы по вашему профилю.</p>
+           <p><em>Я честно говорю об этом, потому что для меня важен результат для ребёнка, а не загрузка моего расписания.</em></p>`,
+    ctaTitle: "Остались вопросы?",
+    ctaSubtitle: "Если нужны рекомендации, к кому обратиться, или хотите уточнить результат — напишите мне.",
+    msg: "Здравствуйте! Прошла тест на сайте, результат — нужны смежные специалисты. Возраст ребёнка: {AGE}. Можно ли с вами проконсультироваться по дальнейшим шагам?"
+  }
+};
+
+function renderResult() {
+  const code = computeResult();
+  const s = SCENARIOS[code];
+  const age = state.answers["1.1"];
+  const ageLabel = AGE_LABEL[age] || age;
+  const msg = s.msg.replace("{AGE}", ageLabel);
+
+  stage.innerHTML = `
+    <div class="result-screen">
+      <div class="header-mark">Результат теста</div>
+      <div class="result-eyebrow">${s.eyebrow}</div>
+      <h2>${s.title}</h2>
+
+      <div class="result-card">
+        ${s.body}
+      </div>
+
+      <div class="cta-card">
+        <h3>${s.ctaTitle}</h3>
+        <p>${s.ctaSubtitle}</p>
+        <div class="message-preview" id="msgPreview">${msg}</div>
+        <div class="cta-buttons">
+          <button class="cta-btn copy" id="copyBtn" onclick="copyMessage(this)">Скопировать сообщение</button>
+          <a class="cta-btn" href="https://t.me/+79639268124" target="_blank" rel="noopener">Открыть Telegram</a>
+          <a class="cta-btn" href="https://max.ru/+79639268124" target="_blank" rel="noopener">Открыть MAX</a>
+        </div>
+      </div>
+
+      <div class="signoff">
+        <p><em>Тест составила <strong>Юлия Кожевникова</strong> — практикующий логопед, специалист по раннему развитию, логопедическому массажу, дикции и технике речи.</em></p>
+      </div>
+
+      <div class="restart">
+        <button onclick="restart()">Пройти тест ещё раз</button>
+      </div>
+    </div>
+  `;
+}
+
+function copyMessage(btn) {
+  const text = document.getElementById("msgPreview").innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = "Скопировано ✓";
+    btn.classList.add("copied");
+    setTimeout(() => {
+      btn.textContent = "Скопировать сообщение";
+      btn.classList.remove("copied");
+    }, 2200);
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    btn.textContent = "Скопировано ✓";
+    btn.classList.add("copied");
+    setTimeout(() => {
+      btn.textContent = "Скопировать сообщение";
+      btn.classList.remove("copied");
+    }, 2200);
+  });
+}
+
+function restart() {
+  state.screen = "welcome";
+  state.currentIdx = 0;
+  state.visibleBlocks = [];
+  state.answers = {};
+  render();
+}
+
+// =========================================================================
+// INIT
+// =========================================================================
+
+render();
+</script>
+</body>
+</html>
